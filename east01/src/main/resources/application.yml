@@ -1,0 +1,17 @@
+auth:
+  url: http://localhost:9090/api/v1/users/me
+
+spring:
+  datasource:
+    url: 'jdbc:mysql://chamdiary-db-01.cfvym5vcsxct.ap-northeast-2.rds.amazonaws.com:3306/cham_202404?useSsl=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul'
+    username: 'chamdiary'
+    password: 'start2023!!'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100

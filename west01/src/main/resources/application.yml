@@ -1,0 +1,57 @@
+server:
+  shutdown: graceful
+  compression:
+    enabled: true
+  port: 9090
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: on_param  #always or never
+    include-binding-errors: always  # never..
+spring:
+  application:
+    name: bada-west01
+  output:
+    ansi:
+      enabled: always
+  r2dbc:
+    url: 'r2dbc:pool:mysql://chamdiary-db-01.cfvym5vcsxct.ap-northeast-2.rds.amazonaws.com:3306/cham_202404'
+    username: 'chamdiary'
+    password: 'start2023!!'
+#    pool:
+#      enabled: true
+#      initial-size: 10
+#      max-acquire-time: 5s
+#      max-create-connection-time: 5s
+#      max-idle-time: 60m # max-wait-time 이랑 같이 챙겨 줘야 함.
+#      max-life-time: 60m
+#      max-size: 10
+
+jwt:
+  issuer: jara
+  subject: auth
+  expires-time: 3600 # 1시간
+  secret: my-secret
+
+
+logging:
+  level:
+    org.springframework.r2dbc.core: debug
+    #    org.mariadb.r2dbc: trace
+    #    org.springframework.r2dbc.connection.init.ScriptUtils: debug
+
+    ## AbstractErrorWebExceptionHandler 로깅 끄기
+    org.springframework.web.HttpLogging: off
+    org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler: off
+    com.bada: debug
+  #    root: debug
+  pattern:
+    #    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+    #    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) [%green(%t)] %blue(%50(\\(%F:%L\\))) %msg%n"
+    #    console: "%d{HH:mm:ss.SSS}|%highlight(%-5level)|%X{txid}|%green(%18.18t)|%blue(%50(\\(%F:%L\\)))|%msg%n"
+    #    console: "%d{HH:mm:ss.SSS}|%highlight(%-5level)|%X{txid:-}|%green(%t)|%blue(\\(%F:%L\\))|%msg%n"
+    console: "%d{HH:mm:ss.SSS}|%highlight(%-5level)|%X{txid:-}|%green(%t)|%logger|%blue(\\(%F:%L\\))|%msg%n"
+
+
+auth:
+  url: http://localhost:9090/api/v1/users/me
